@@ -1,0 +1,15 @@
+.main {
+    text-align: center;
+
+}
+
+.header,.education, .experience {
+    display: flex;
+    flex-direction: column;
+    max-width: 20%;
+    margin: auto;
+    border: solid 10px;
+
+}
+
+
