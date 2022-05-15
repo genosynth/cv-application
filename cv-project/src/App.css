@@ -3,13 +3,64 @@
 
 }
 
-.header,.education, .experience {
+.header, .education, .experience{
+    border: solid 1px;
+    border-radius: 15px;
+    max-width: 40%;
+    margin: auto;
+    border: solid 1px;
+    border-radius: 15px;
+    padding: 1%;  
+    
+    
+
+}
+
+.edit-header, .edit-education, .edit-experience {
+    max-width: 40%;
+    margin: auto;
+    border: solid 1px;
+    border-radius: 15px;   
+    padding: 1%;  
+}
+
+.edit-header ul, .edit-education ul, .edit-experience ul {
     display: flex;
     flex-direction: column;
-    max-width: 20%;
-    margin: auto;
-    border: solid 10px;
+     
+    font-weight: bold;    
+    padding: 2%;     
+    
+}
 
+
+
+.header ul , .education ul, .experience ul{
+    flex-direction: column;     
+    text-align: left;    
+    padding: 2%;  
+    align-self: center;
+    list-style-type: none;
+
+}
+
+
+button {
+    width: 80px;
+    height: 25px;
+    background-color: rgb(162, 224, 162);
+    border-radius: 5px;
+    border: 1px;
+}
+
+button:hover {
+    background-color: rgb(68, 158, 68);
+    cursor: pointer; 
+}
+
+input {
+    border-radius: 5px;
+    border: 1px solid;
 }
 
 
