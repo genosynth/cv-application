@@ -10,6 +10,7 @@ export class Header extends Component {
      
       return (
         <div className='header'>
+          <h1>Personal Information</h1>
           <ul>
             <li><b>Name</b> : {info.name}</li>
             <li><b>Email</b> : {info.email}</li>
@@ -21,6 +22,7 @@ export class Header extends Component {
     }
     return (
       <div className='edit-header'>
+        <h1>Personal Information</h1>
           <ul>
           <label>Name</label>
           <input type="text" onChange={this.props.updateName} value={this.props.state.name}></input>

@@ -1,5 +1,11 @@
+html{
+    background: linear-gradient(90deg, rgba(122,122,122,1) 0%, rgba(173,173,173,1) 47%, rgba(255,255,255,1) 100%);
+   
+}
+
 .main {
     text-align: center;
+    font-family: "Lucida Console", "Courier New", monospace;
 
 }
 
@@ -10,10 +16,24 @@
     margin: auto;
     border: solid 1px;
     border-radius: 15px;
-    padding: 1%;  
-    
-    
+    padding: 1%;   
+    color: black;
+    box-shadow: 5px 10px grey;
 
+      
+
+}
+
+.header, .edit-header {
+    background: linear-gradient(90deg, rgba(93,194,37,1) 0%, rgba(160,245,129,1) 47%, rgba(255,255,255,1) 100%);
+}
+
+.education, .edit-education {
+    background: linear-gradient(90deg, rgba(31,156,208,1) 0%, rgba(118,247,255,1) 47%, rgba(255,255,255,1) 100%);
+}
+
+.experience, .edit-experience {
+    background: linear-gradient(90deg, rgba(208,31,31,1) 0%, rgba(255,185,118,1) 47%, rgba(255,255,255,1) 100%);
 }
 
 .edit-header, .edit-education, .edit-experience {
@@ -22,6 +42,7 @@
     border: solid 1px;
     border-radius: 15px;   
     padding: 1%;  
+    box-shadow: 5px 10px grey;
 }
 
 .edit-header ul, .edit-education ul, .edit-experience ul {

@@ -9,6 +9,7 @@ export class Education extends Component {
     return (
       
       <div className='education'>
+        <h1>Education</h1>
         <ul>
           <li><b>School Name</b> : {info.schoolName}</li>
           <li><b>Title Of Study</b> : {info.studyName}</li>
@@ -16,6 +17,7 @@ export class Education extends Component {
           <li><b>Date of Study To</b> :{info.studyDateTo}</li>
         </ul>
         <button onClick={this.props.editSchool}>Edit</button>
+        
       </div>
      
       )
@@ -25,6 +27,7 @@ export class Education extends Component {
 
 
       <div className='edit-education'>
+         <h1>Education</h1>
         <ul>
           <label>School Name</label>
           <input type="text" onChange={this.props.updateSchoolName} value={this.props.state.schoolName}></input>

@@ -9,6 +9,7 @@ export class Experience extends Component {
       
       return (
         <div className='experience'>
+          <h1>Experience</h1>
           <ul>
             <li><b>Company Name</b> : {info.companyName}</li>
             <li><b>Position Title</b> : {info.positionTitle}</li>
@@ -17,11 +18,13 @@ export class Experience extends Component {
             <li><b>Date End Of Work</b> : {info.workDateTo}</li>
         </ul>
         <button onClick={this.props.resetExperience}>Edit</button>
+        <button>Add</button>
     </div>
       )
     }
     return (
       <div className='edit-experience'>
+        <h1>Experience</h1>
         <ul>
           <label>Company Name</label>
           <input type="text" onChange={this.props.updateCompanyName} value={this.props.state.companyName}></input>
