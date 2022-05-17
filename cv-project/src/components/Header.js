@@ -5,16 +5,18 @@ export class Header extends Component {
   
     
   render() {
-    let info = JSON.parse(this.props.storingInfo)
-    if (info!=null && info.name!=null) {
+    let storage = JSON.parse(localStorage.getItem("cvapp"))
+    
+   // let info = JSON.parse(this.props.storingInfo)
+    if (storage!=null && storage.name!=null) {
      
       return (
         <div className='header'>
           <h1>Personal Information</h1>
           <ul>
-            <li><b>Name</b> : {info.name}</li>
-            <li><b>Email</b> : {info.email}</li>
-            <li><b>Phone Number</b> : {info.number}</li>
+            <li><b>Name</b> : {storage.name}</li>
+            <li><b>Email</b> : {storage.email}</li>
+            <li><b>Phone Number</b> : {storage.number}</li>
           </ul>
           <button onClick={this.props.resetInfo}>Edit</button>
         </div>

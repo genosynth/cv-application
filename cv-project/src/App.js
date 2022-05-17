@@ -3,6 +3,23 @@ import './App.css';
 import Header from './components/Header';
 import Education from './components/Education';
 import Experience from './components/Experience';
+import { v4 as uuidv4 } from 'uuid';
+
+
+if(!localStorage.getItem("cvapp")){
+  localStorage.setItem("cvapp", JSON.stringify({
+    name:"",
+    email:"",
+    phone:"",
+    experience:[],
+    schoolName:"",
+    studyName:"",
+    studyDateFrom:"",
+    studyDateTo:""
+
+  }))
+}
+
 
 export class App extends Component {
   constructor(props) {
@@ -20,6 +37,7 @@ export class App extends Component {
       mainTasks: "",
       workDateFrom: "",
       workDateTo: "",
+      experience: "", // 
       storedInfo: localStorage.getItem('cvapp')
     };
 
@@ -36,11 +54,13 @@ export class App extends Component {
     this.updateWorkDateFrom = this.updateWorkDateFrom.bind(this);
     this.updateWorkDateTo = this.updateWorkDateTo.bind(this);
     this.storeInfo = this.storeInfo.bind(this);
-    this.addExperience = this.addExperience.bind(this)
-    this.resetExperience = this.resetExperience.bind(this)
-    this.resetInfo = this.resetInfo.bind(this)
-    this.addSchool = this.addSchool.bind(this)
-    this.editSchool = this.editSchool.bind(this)
+    this.addExperience = this.addExperience.bind(this);
+    this.editExperience = this.editExperience.bind(this);
+    this.resetInfo = this.resetInfo.bind(this);
+    this.addSchool = this.addSchool.bind(this);
+    this.editSchool = this.editSchool.bind(this);
+    this.createExperience = this.createExperience.bind(this);
+    this.deleteExperience = this.deleteExperience.bind(this);
   }
 
 
@@ -74,15 +94,41 @@ storeInfo(e){
 }
 
 addExperience(e){
+  
 
   if (JSON.parse(localStorage.getItem('cvapp'))){
-    let storage = JSON.parse(localStorage.getItem('cvapp'))
-     
-    storage.companyName = this.state.companyName
+    let storage = JSON.parse(localStorage.getItem('cvapp'))    
+    console.log(e)
+
+   storage.experience.forEach((el) => {
+      if (el.companyName==null){
+        el.companyName = this.state.companyName
+        el.positionTitle = this.state.positionTitle
+        el.mainTasks = this.state.mainTasks
+        el.workDateFrom = this.state.workDateFrom
+        el.workDateTo = this.state.workDateTo
+        return el
+      }
+      return el
+    });
+    
+
+    console.log(storage.experience)
+    /*storage.companyName = this.state.companyName
     storage.positionTitle = this.state.positionTitle
     storage.mainTasks = this.state.mainTasks
     storage.workDateFrom = this.state.workDateFrom
-    storage.workDateTo = this.state.workDateTo
+    storage.workDateTo = this.state.workDateTo 
+    let toSave = {
+      companyName:storage.companyName,
+      positionTitle:storage.positionTitle,
+      mainTasks:storage.mainTasks,
+      workDateFrom:storage.workDateFrom,
+      workDateTo:storage.workDateTo
+    } */
+
+
+    //storage.experience = [...storage.experience]
  
   console.log(storage)
   localStorage.setItem('cvapp', JSON.stringify(storage));
@@ -101,12 +147,66 @@ addExperience(e){
     workDateTo : this.state.workDateTo
     
   }
-  localStorage.setItem('cvapp', JSON.stringify(data));
+  localStorage.setItem('cvapp', JSON.stringify({experience: [data]}));
   return  this.setState({
-  
+    
     storedInfo: localStorage.getItem("cvapp") 
   });;
  
+
+}
+
+createExperience(){
+  console.log("fuck")
+  let storage = JSON.parse(localStorage.getItem('cvapp'))  
+  let draft = {id: uuidv4(), companyName:null,positionTitle:null, mainTasks:null, workDateFrom:null, workDateTo:null}
+  if(storage){
+    try {
+      let prevExperience = storage.experience
+      storage.experience = [...prevExperience, draft]
+    } catch {
+      storage = {experience:[draft]}
+    }
+    
+    
+  } else {
+    console.log(storage)
+    storage = {experience:[draft]}
+    
+     
+  }  
+
+  if (!storage.name){
+    storage.name = this.state.name
+    storage.email = this.state.email
+    storage.number = this.state.number
+  }
+  localStorage.setItem("cvapp", JSON.stringify(storage))
+  this.setState({
+  
+    storedInfo: localStorage.getItem("cvapp") 
+  });;
+}
+
+deleteExperience(id){
+  let storage = JSON.parse(localStorage.getItem('cvapp'))
+  let array = storage.experience
+  
+
+  const filtered = array.filter((el) => {
+    if (el.id!==id){
+      return el
+    }
+  })
+  storage.experience = filtered
+
+  localStorage.setItem("cvapp", JSON.stringify(storage))
+  this.setState({
+  
+    storedInfo: localStorage.getItem("cvapp") 
+  });;
+
+
 
 }
 
@@ -160,23 +260,24 @@ resetInfo(e){
 
 }
 
-resetExperience(e){
+editExperience(e){
 
   let storage = JSON.parse(localStorage.getItem('cvapp'))  
- 
-  this.setState({
-    companyName:storage.companyName,
-    positionTitle:storage.positionTitle,
-    mainTasks:storage.mainTasks,
-    workDateFrom:storage.workDateFrom,
-    workDateTo:storage.workDateTo
+  let array = storage.experience
+  
+  array.map((el)=>{
+    if (el.id==e){
+      el.companyName=null
+      el.positionTitle=null
+      el.mainTasks=null
+      el.workDateFrom=null
+      el.workDateTo = null
+      
+    }
   })
 
-  storage.companyName = null
-  storage.positionTitle =  null
-  storage.mainTasks = null
-  storage.workDateFrom = null
-  storage.workDateTo = null
+  storage.experience = [...array]
+  console.log(array)
   localStorage.setItem("cvapp", JSON.stringify(storage))
   this.setState({
   
@@ -290,7 +391,7 @@ resetExperience(e){
         <h1>CV Application</h1>
         <Header updateName={this.updateName} updateEmail={this.updateEmail} updateNumber={this.updateNumber} storeInfo={this.storeInfo} storingInfo={this.state.storedInfo} resetInfo={this.resetInfo} state={this.state}></Header>
         <Education updateSchoolName={this.updateSchoolName} updateStudyName={this.updateStudyName} updateStudyDateFrom={this.updateStudyDateFrom} updateStudyDateTo={this.updateStudyDateTo} addSchool={this.addSchool} storedInfo={this.state.storedInfo} editSchool={this.editSchool} state={this.state}></Education>
-        <Experience updateCompanyName={this.updateCompanyName} updatePositionTitle={this.updatePositionTitle} updateMainTasks={this.updateMainTasks} updateWorkDateFrom={this.updateWorkDateFrom} updateWorkDateTo={this.updateWorkDateTo} addExperience={this.addExperience} storingInfo={this.state.storedInfo} resetExperience={this.resetExperience} state={this.state}></Experience>
+        <Experience updateCompanyName={this.updateCompanyName} updatePositionTitle={this.updatePositionTitle} updateMainTasks={this.updateMainTasks} updateWorkDateFrom={this.updateWorkDateFrom} updateWorkDateTo={this.updateWorkDateTo} addExperience={this.addExperience} storingInfo={this.state.storedInfo} editExperience={this.editExperience} state={this.state} createExperience={this.createExperience} deleteExperience={this.deleteExperience}></Experience>
         
         
       </div>
