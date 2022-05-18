@@ -44,9 +44,9 @@ export class Experience extends Component {
               }}>Save</button>
         </div>
         }
-           return <div>
+           return <div key={el.id}>
             
-            <ul style={{listStyle: "none"}}>
+            <ul className='experience-bullet-box' style={{listStyle: "none"}}>
               <li><b>Company Name</b> : {el.companyName}</li>
               <li><b>Position Title</b> : {el.positionTitle}</li>
               <li><b>Main Tasks Of Job</b> : {el.mainTasks}</li>

@@ -9,7 +9,7 @@ html{
 
 }
 
-.header, .education, .experience{
+.header, .education, .experience {
     border: solid 1px;
     border-radius: 15px;
     max-width: 40%;
@@ -18,9 +18,12 @@ html{
     border-radius: 15px;
     padding: 1%;   
     color: black;
-    box-shadow: 5px 10px grey;
+    box-shadow: 5px 10px grey;      
 
-      
+}
+
+.experience-bullet-box {
+    text-align: left;
 
 }
 
